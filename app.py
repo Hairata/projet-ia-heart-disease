@@ -14,6 +14,7 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
 # ---- Chargement des données ----
@@ -43,7 +44,7 @@ def train_models(df):
         'SVM': SVC(probability=True, random_state=42),
         'Logistic Regression': LogisticRegression(random_state=42),
         'Random Forest': RandomForestClassifier(random_state=42),
-        'AdaBoost': AdaBoostClassifier(random_state=42),
+        'AdaBoost' : AdaBoostClassifier(algorithm="SAMME", random_state=42)
         'Decision Tree': DecisionTreeClassifier(random_state=42)
     }
     resultats = {}
