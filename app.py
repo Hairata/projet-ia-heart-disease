@@ -14,10 +14,8 @@ from sklearn.svm import SVC
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
-from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, roc_auc_score
 
-# ---- Chargement des données ----
 @st.cache_data
 def load_data():
     url = "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data"
@@ -29,7 +27,6 @@ def load_data():
     df['thal'].fillna(df['thal'].median(), inplace=True)
     return df
 
-# ---- Entraînement des modèles ----
 @st.cache_resource
 def train_models(df):
     X = df.drop('target', axis=1)
@@ -44,7 +41,7 @@ def train_models(df):
         'SVM': SVC(probability=True, random_state=42),
         'Logistic Regression': LogisticRegression(random_state=42),
         'Random Forest': RandomForestClassifier(random_state=42),
-        'AdaBoost' : AdaBoostClassifier(algorithm="SAMME", random_state=42)
+        'AdaBoost': AdaBoostClassifier(algorithm="SAMME", random_state=42),
         'Decision Tree': DecisionTreeClassifier(random_state=42)
     }
     resultats = {}
@@ -61,16 +58,14 @@ def train_models(df):
         }
     return modeles, scaler, resultats
 
-# ---- Interface ----
 st.title("🫀 Prédiction de Maladie Cardiaque")
 st.markdown("**Projet IA - IFOAD | Haida**")
 
 df = load_data()
 modeles, scaler, resultats = train_models(df)
 
-# Menu de navigation
-menu = st.sidebar.selectbox("Navigation", 
-    ["Accueil", "Exploration des données", 
+menu = st.sidebar.selectbox("Navigation",
+    ["Accueil", "Exploration des données",
      "Comparaison des modèles", "Prédiction"])
 
 if menu == "Accueil":
@@ -109,7 +104,7 @@ elif menu == "Prédiction":
         cp = st.slider("Type de douleur thoracique (0-3)", 0, 3, 1)
         trestbps = st.slider("Pression artérielle au repos", 80, 200, 130)
         chol = st.slider("Cholestérol (mg/dl)", 100, 600, 250)
-        fbs = st.selectbox("Glycémie > 120 mg/dl", [0, 1], 
+        fbs = st.selectbox("Glycémie > 120 mg/dl", [0, 1],
                           format_func=lambda x: "Non" if x==0 else "Oui")
         restecg = st.slider("Résultat ECG au repos (0-2)", 0, 2, 1)
     with col2:
