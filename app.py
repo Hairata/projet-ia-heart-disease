@@ -41,7 +41,7 @@ def train_models(df):
         'SVM': SVC(probability=True, random_state=42),
         'Logistic Regression': LogisticRegression(random_state=42),
         'Random Forest': RandomForestClassifier(random_state=42),
-        'AdaBoost': AdaBoostClassifier(algorithm="SAMME", random_state=42),
+        'AdaBoost': AdaBoostClassifier(n_estimators=50, random_state=42),
         'Decision Tree': DecisionTreeClassifier(random_state=42)
     }
     resultats = {}
